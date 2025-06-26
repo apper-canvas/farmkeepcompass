@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ApperIcon from '@/components/ApperIcon';
 import { routeArray } from '@/config/routes';
 import FarmSelector from '@/components/organisms/FarmSelector';
 import OfflineIndicator from '@/components/molecules/OfflineIndicator';
+import { AuthContext } from './App';
 
+const LogoutButton = () => {
+  const { logout } = useContext(AuthContext);
+
+  return (
+    <button
+      onClick={logout}
+      className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+      title="Logout"
+    >
+      <ApperIcon name="LogOut" size={16} />
+      <span className="hidden sm:inline">Logout</span>
+    </button>
+  );
+};
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -39,9 +54,10 @@ const Layout = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+<div className="flex items-center gap-4">
           <FarmSelector />
           <OfflineIndicator />
+          <LogoutButton />
         </div>
       </header>
 
